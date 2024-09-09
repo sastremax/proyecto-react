@@ -1,16 +1,10 @@
-import './App.css'
-import NavBar from './components/NavBar';
+import React from 'react';
+import { chakraProvider } from "@chakra-ui/react";
+import NavBar from './components/NavBar/NavBar';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 
-function App() {
-  return (
-    <div className="App">
-      <NavBar />
-      <h1>Vite + Reaccionar</h1>
-      <div className="card">
-        <p>Editar <code>src/App.jsx</code> y guardar para probar HMR</p>
-      </div>
-    </div>
-  );
+const App = () => {
+  return <chakraProvider></chakraProvider>;
 }
 
 export default App;
