@@ -14,10 +14,10 @@ import {
     Stack,
     useColorMode,
     Center,
-  } from "@chakra-ui/react";
-  import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-  
-  const Navbar = () => {
+} from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+
+const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
     
