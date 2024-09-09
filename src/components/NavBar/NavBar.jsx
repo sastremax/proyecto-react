@@ -14,6 +14,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import logo from '../../assets/logoFanaticos.png';
 import CardWidget from "../CardWidget/CardWidget";
 
 const Navbar = () => {
@@ -22,7 +23,25 @@ const Navbar = () => {
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box>Logo</Box>
+          <Box display="flex" alignItems="center">
+            <Box boxSize="50px">
+              <img src={logo} alt="logo Fanáticos EdeLP" />
+            </Box>
+          </Box>
+          <Stack direction={"row"} spacing={4}>
+            <Button as="a" href="#inicio" variant="link" fontWeight="bold" fontSize="xl">
+              Inicio
+            </Button>
+            <Button as="a" href="#camisetas" variant="link" fontWeight="bold" fontSize="xl">
+              Camisetas
+            </Button>
+            <Button as="a" href="#indumentaria" variant="link" fontWeight="bold" fontSize="xl">
+              Indumentaria
+            </Button>
+            <Button as="a" href="#accesorios" variant="link" fontWeight="bold" fontSize="xl">
+              Accesorios
+            </Button>
+          </Stack>
 
           <Flex alignItems={"center"}>
             <CardWidget />
@@ -58,9 +77,9 @@ const Navbar = () => {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem>Mi cuenta</MenuItem>
+                  <MenuItem>Ajustes</MenuItem>
+                  <MenuItem>Cerrar Sesión</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
