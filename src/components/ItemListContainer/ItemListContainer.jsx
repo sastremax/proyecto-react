@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Counter from "../Counter/counter";
 
 const ItemListContainer = ({ greeting }) => {
     return (
@@ -14,7 +15,8 @@ const ItemListContainer = ({ greeting }) => {
                 justifyContent: 'center',
             }}
         >
-            {greeting}
+            {/* greeting */}
+            <Counter />
         </div>
     );
 };

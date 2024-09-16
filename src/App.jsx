@@ -1,12 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import NavBar from "./components/NavBar/NavBar";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
+import MainLayout from "./layouts/MainLayout";
+import Counter from "./components/Counter/counter";
 
 const App = () => {
+
   return (
     <ChakraProvider>
-      <NavBar />
-      <ItemListContainer greeting="Bienvenidos a la tienda de productos de Fanáticos EdeLP" />
+      <MainLayout>       
+        <ItemListContainer greeting="Bienvenidos a la tienda de productos de Fanáticos EdeLP" />        
+      </MainLayout>      
     </ChakraProvider>
   );
 }
