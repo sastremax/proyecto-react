@@ -14,8 +14,17 @@ const Counter = () => {
     }
 
     useEffect(() => {
-
+        console.log("useEffect descontrolado");
     });
+
+    useEffect(() => {
+        console.log("useEffect controlado con dependencias vacias")
+    }, []);
+
+    useEffect(() => {
+        console.log("useEffect controlado con dependencia");
+    }, [state]);
+
     return (
     <Flex>
         <Button onClick={handleRemove}>-</Button>

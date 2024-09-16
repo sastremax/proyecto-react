@@ -6,16 +6,21 @@ import { useRef } from "react";
 const MainLayout = ({ children }) => {
 
     const footerRef = useRef(null);
+
+    /*footerRef.current.innerHTML = "texto cambiado";*/
+
     const handleClick = () => {
         footerRef.current.innerHTML = "texto cambiado";
+        footerRef.current.setAttribute("style", "color: red");
+        
     };
     return <Box>
         <NavBar />
         {children}
-        
-        {/*<footer ref={footerRef}>Este es mi footer</footer>
-        <Button onClick={handleClick} marginBottom={'40px'}>Cambiar texto</Button>*/}
-        
+        <div>
+            <footer ref={footerRef}>Este es mi footer</footer>
+            <Button onClick={handleClick} marginBottom={'40px'}>Cambiar texto</Button>
+        </div>
     </Box>
 };
 
