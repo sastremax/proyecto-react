@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import MainLayout from "./layouts/MainLayout";
-import Counter from "./components/Counter/counter";
 
 const App = () => {
 

@@ -13,16 +13,7 @@ const Counter = () => {
         setState(state - 1);
     }
 
-    useEffect(() => {
-        console.log("useEffect descontrolado");
-    });
-
-    useEffect(() => {
-        console.log("useEffect controlado con dependencias vacias")
-    }, []);
-
-    useEffect(() => {
-        console.log("useEffect controlado con dependencia");
+    useEffect(() => {        
     }, [state]);
 
     return (

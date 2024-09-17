@@ -7,8 +7,6 @@ const MainLayout = ({ children }) => {
 
     const footerRef = useRef(null);
 
-    /*footerRef.current.innerHTML = "texto cambiado";*/
-
     const handleClick = () => {
         footerRef.current.innerHTML = "texto cambiado";
         footerRef.current.setAttribute("style", "color: red");
