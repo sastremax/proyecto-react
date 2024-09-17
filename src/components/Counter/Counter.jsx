@@ -1,28 +1,46 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-const Counter = () => {
+const Counter = ({ stock, onAdd }) => {
 
     const [state, setState] = useState(0);
 
     const handleAdd = () => {
-        setState(state + 1);
-    }
+        if (state < stock) {
+            setState(state + 1);
+        }
+    };
 
     const handleRemove = () => {
-        setState(state - 1);
-    }
+        if (state > 0) {
+            setState(state - 1);
+        }
+    };
 
-    useEffect(() => {        
+    const handleConfirm = () => {
+        if (state > 0) {
+            onAdd(state);
+        }
+    };
+
+    useEffect(() => {
+        console.log(`El contador ha cambiado a: ${state}`);
     }, [state]);
 
     return (
-    <Flex>
-        <Button onClick={handleRemove}>-</Button>
-        <Text>{state}</Text>
-        <Button onClick={handleAdd}>+</Button>
-    </Flex>
+        <Flex>
+            <Button onClick={handleRemove}>-</Button>
+            <Text>{state}</Text>
+            <Button onClick={handleAdd}>+</Button>
+            <Button onClick={handleConfirm} disabled={state === 0}>Confirmar</Button>
+        </Flex>
     );
+};
+
+Counter.propTypes = {
+    stock: PropTypes.number.isRequired,
+    onAdd: PropTypes.func.isRequired
 };
 
 export default Counter;

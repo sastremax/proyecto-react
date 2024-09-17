@@ -2,6 +2,12 @@ import PropTypes from 'prop-types';
 import Counter from "../Counter/counter";
 
 const ItemListContainer = ({ greeting }) => {
+
+    const stock = 20;
+    const onAdd = (cantidad) => {
+        console.log(`Cantidad agregada: ${cantidad}`);
+    };
+
     return (
         <div
             style={{
@@ -14,9 +20,8 @@ const ItemListContainer = ({ greeting }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}
-        >
-            {/* greeting */}
-            <Counter />
+        >            
+            <Counter stock={stock} onAdd={onAdd} />
         </div>
     );
 };
