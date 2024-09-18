@@ -1,6 +1,10 @@
-/*import { box } from "@chakra-ui/react";
-import 
+import ItemListContainer from "../components/ItemListContainer/ItemListContainer";
 
 const Home = () => {
-    return < ItemListContainer = ({ greeting }) />
-}*/
+
+
+
+    return <ItemListContainer greeting="Bienvenidos" />;
+}
+
+export default Home;

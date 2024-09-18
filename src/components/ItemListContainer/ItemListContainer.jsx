@@ -11,7 +11,7 @@ const ItemListContainer = ({ greeting }) => {
     return (
         <div
             style={{
-                fontSize: "2 rem",
+                fontSize: "2rem",
                 fontWeight: "bold",
                 font: "Nunito",
                 height: '100%',
@@ -20,7 +20,8 @@ const ItemListContainer = ({ greeting }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}
-        >            
+        >          
+            <h1>{greeting}</h1>  
             <Counter stock={stock} onAdd={onAdd} />
         </div>
     );
