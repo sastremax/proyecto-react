@@ -47,13 +47,15 @@ const ItemListContainer = ({ products }) => {
             </Heading>
             <Text color={"gray.500"} noOfLines={2}>
               { item.description }
-            </Text>
-            
+            </Text>            
             <Box bg="black" display={'inline-block'} px={2} py={1} color="white" mb={2}>
-            <Text fontSize={"xs"} fontWeight={"medium"} color={"white"} noOfLines={2}>
+              <Text fontSize={"xs"} fontWeight={"medium"} color={"white"} noOfLines={2}>
               ${ item.price }
-            </Text>
-          </Box>
+              </Text>              
+            </Box>
+            <Text color={"gray.500"} noOfLines={2}>
+                Stock disponible: { item.stock > 0 ? item.stock : "Agotado"}
+              </Text>
           </Box>
           <HStack borderTop={"1px"} color="black">
             <Flex
@@ -65,7 +67,7 @@ const ItemListContainer = ({ products }) => {
               w="full"
             >
               <Text fontSize={"md"} fontWeight={"semibold"}>
-                View more
+                Ver más
               </Text>
               <BsArrowUpRight />
             </Flex>
