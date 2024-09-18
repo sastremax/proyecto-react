@@ -1,13 +1,13 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import MainLayout from "./layouts/MainLayout";
+import Home from "./Pages/Home";
 
 const App = () => {
 
   return (
     <ChakraProvider>
       <MainLayout>       
-        <ItemListContainer greeting="Bienvenidos a la tienda de productos de Fanáticos EdeLP" />        
+        <Home />        
       </MainLayout>      
     </ChakraProvider>
   );
