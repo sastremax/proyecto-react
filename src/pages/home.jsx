@@ -1,7 +1,7 @@
 import { ItemListContainer } from "../components/ItemListContainer";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../services/products.service";
-import Loader from "../components/Loader/Loader";
+import { Loader } from "../components/Loader";
 
 const Home = () => {
 
