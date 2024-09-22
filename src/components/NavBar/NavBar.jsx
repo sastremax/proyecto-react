@@ -17,7 +17,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import logo from '../../assets/logoFanaticos.png';
 import CardWidget from "../CardWidget/CardWidget";
 
-const Navbar = () => {
+export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -88,5 +88,3 @@ const Navbar = () => {
       </Box>
   );
 };
-
-export default Navbar;
