@@ -11,15 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { BsArrowUpRight } from "react-icons/bs";
 
-const ItemListContainer = ({ products }) => {
+const Item = ({ item }) => {
   const borderColor = useColorModeValue("black", "white");
   const boxShadow = useColorModeValue("6px 6px 0 black", "6px 6px 0 white");
   const bgColor = useColorModeValue("white", "gray.200");
-
   return (
-    <Flex flexWrap="wrap" justifyContent="center" gap={6}>
-      {products.map((item) => (
-        <Center py={6} key={item.id}>
+    <Center py={6}>
           <Box
             w="xs"
             rounded={"lg"}
@@ -89,10 +86,29 @@ const ItemListContainer = ({ products }) => {
             </HStack>
           </Box>
         </Center>
-      ))}
-      ;
+  )
+}
+
+export const ItemListContainer = ({ products }) => {
+  
+  return (
+    <Flex flexWrap="wrap" justifyContent="center" gap={6}>
+      {products.map((item) => {
+        return <Item key={item.id} item={item} />;
+      })}      
     </Flex>
   );
+};
+
+Item.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    stock: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 ItemListContainer.propTypes = {
@@ -101,10 +117,11 @@ ItemListContainer.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      imageUrl: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      stock: PropTypes.number.isRequired,
       category: PropTypes.string,
     })
   ).isRequired,
 };
 
-export default ItemListContainer;

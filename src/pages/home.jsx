@@ -1,4 +1,4 @@
-import ItemListContainer from "../components/ItemListContainer/ItemListContainer";
+import { ItemListContainer } from "../components/ItemListContainer";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../services/products.service";
 import Loader from "../components/Loader/Loader";
