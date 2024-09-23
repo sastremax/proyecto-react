@@ -1,8 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import MainLayout from "./layouts/MainLayout";
-import Home from "./Pages/Home";
+import { MainLayout } from "./layouts";
+import { Home } from "./Pages";
 
-const App = () => {
+export const App = () => {
 
   return (
     <ChakraProvider>
@@ -12,5 +12,3 @@ const App = () => {
     </ChakraProvider>
   );
 }
-
-export default App;

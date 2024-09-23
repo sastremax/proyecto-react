@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { NavBar } from "../components/NavBar";
 import PropTypes from 'prop-types';
 
-const MainLayout = ({ children }) => {
+export const MainLayout = ({ children }) => {
     return <Box>
         <NavBar />
         {children}        
@@ -12,5 +12,3 @@ const MainLayout = ({ children }) => {
     MainLayout.propTypes = {
     children: PropTypes.node.isRequired,
     };
-
-export default MainLayout;
