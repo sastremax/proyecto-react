@@ -1,6 +1,8 @@
-import { Box, Heading, Text, Img, Flex, Center, useColorModeValue } from "@chakra-ui/react";
+import { Box, Heading, Text, Img, Center, useColorModeValue } from "@chakra-ui/react";
+import PropTypes from 'prop-types';
 
-const ItemDetail = ({ item }) => {
+export const ItemDetailContainer = ({ item }) => {
+    
     const borderColor = useColorModeValue("black", "white");
     const boxShadow = useColorModeValue("6px 6px 0 black", "6px 6px 0 white");
     const bgColor = useColorModeValue("white", "gray.200");
@@ -29,7 +31,7 @@ const ItemDetail = ({ item }) => {
                     />
                 </Box>
                 <Box p={4}>
-                    <Heading color={"black"} fontSize={"2xl"} noOfLines={1}>
+                    <Heading color="black" fontSize="2xl" noOfLines={1}>
                         {item.title}
                     </Heading>
                     <Text color={"gray.500"} noOfLines={2}>
@@ -62,4 +64,12 @@ const ItemDetail = ({ item }) => {
     );
 };
 
-export default ItemDetail;
+ItemDetailContainer.propTypes = {
+    item: PropTypes.shape({
+        thumbnail: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        stock: PropTypes.number.isRequired,
+    }).isRequired,
+};
