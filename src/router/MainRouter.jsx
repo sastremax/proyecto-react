@@ -1,15 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, ItemDetail, NotFound } from "../Pages";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Category, Home, ItemDetail, NotFound } from "../Pages";
 
 export const MainRouter = () => {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/item/:id" element={<ItemDetail />} />
-          <Route path="/category/:id" element={<ItemDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/item/:id" element={<ItemDetail />} />
+        <Route path="/category/:id" element={<Category />} /> 
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+  );
 };
