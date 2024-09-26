@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Heading,
     Text,
     Img,
@@ -8,11 +9,12 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
 export const ItemDetailContainer = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,10 +24,10 @@ export const ItemDetailContainer = () => {
         const fetchItem = async () => {
             try {
                 const response = await fetch(
-                    `https://api.example.com/items/${id}`
+                    `https://dummyjson.com/products/${id}`
                 );
                 if (!response.ok) {
-                    throw new Error('Error al obtener los datos');
+                    throw new Error("Error al obtener los datos");
                 }
                 const data = await response.json();
                 setItem(data);
@@ -88,9 +90,7 @@ export const ItemDetailContainer = () => {
                     <Heading color="black" fontSize="2xl" noOfLines={1}>
                         {item.title}
                     </Heading>
-                    <Text color={"gray.500"} noOfLines={2}>
-                        {item.description}
-                    </Text>
+                    <Text color={"gray.500"}>{item.description}</Text>
                     <Box
                         bg={bgColor}
                         display={"inline-block"}
@@ -113,6 +113,13 @@ export const ItemDetailContainer = () => {
                         Stock disponible:{" "}
                         {item.stock > 0 ? item.stock : "Agotado"}
                     </Text>
+                    <Button
+                        onClick={() => navigate(-1)}
+                        mt={4}
+                        colorScheme="blue"
+                    >
+                        Volver
+                    </Button>
                 </Box>
             </Box>
         </Center>
@@ -121,10 +128,10 @@ export const ItemDetailContainer = () => {
 
 ItemDetailContainer.propTypes = {
     item: PropTypes.shape({
-        thumbnail: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        stock: PropTypes.number.isRequired,
-    }).isRequired,
+        thumbnail: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        price: PropTypes.number,
+        stock: PropTypes.number,
+    }),
 };
