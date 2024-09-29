@@ -9,9 +9,12 @@ export const Category = () => {
         (product) => product.category === categoryId
     );
 
-    return loading ? (
-        <div>Cargando...</div>
-    ) : (
-        <ItemListContainer products={filteredProducts} />
-    );
+    if (loading) {
+    return <div>Cargando...</div>;
+    }
+
+    if (filteredProducts.length > 0) {
+        return <ItemListContainer products={filteredProducts} />;
+    }
+    return <p>No hay productos disponibles en esta categoría.</p>;    
 };

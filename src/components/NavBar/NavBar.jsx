@@ -20,9 +20,12 @@ import logo from "../../assets/logoFanaticos.png";
 import { CardWidget } from "../CardWidget";
 
 import { Link } from "react-router-dom";
+import { useCategory } from "../../hooks";
 
 export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const {categories} = useCategory();
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
@@ -30,6 +33,18 @@ export const NavBar = () => {
           <Box boxSize="50px">
             <Image boxSize="50px" src={logo} alt="logo Fanáticos EdeLP" />
           </Box>
+          <Menu>
+            <MenuButton as={Link} cursor="pointer" style={{ marginLeft: 30 }}>
+              Categorias
+            </MenuButton>
+            <MenuList height={"300px"} overflowY={"scroll"}>
+              {categories.map((Category) => (
+                <MenuItem key={Category.slug}>
+                  <Link to={`/category${Category.slug}`}>{Category.name}</Link>
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
         </Box>
         <Stack direction={"row"} spacing={4}>
           <Link to="/">
