@@ -3,12 +3,11 @@ import { MainLayout } from "./layouts";
 import { MainRouter } from "./router";
 
 export const App = () => {
-
-  return (
-    <ChakraProvider>
-      <MainLayout>       
-        <MainRouter />
-      </MainLayout>
-    </ChakraProvider>
-  );
-}
+    return (
+        <ChakraProvider>
+            <MainLayout>
+                <MainRouter />
+            </MainLayout>
+        </ChakraProvider>
+    );
+};

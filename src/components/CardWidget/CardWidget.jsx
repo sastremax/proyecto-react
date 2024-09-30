@@ -22,7 +22,7 @@ export const CardWidget = () => {
                 justifyContent: "space-between",
             }}
         >
-            00
+            
         </IconButton>
     );
 };

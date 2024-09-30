@@ -18,7 +18,6 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 import logo from "../../assets/logoFanaticos.png";
 import { CardWidget } from "../CardWidget";
-
 import { Link } from "react-router-dom";
 import { useCategory } from "../../hooks";
 
@@ -34,13 +33,13 @@ export const NavBar = () => {
             <Image boxSize="50px" src={logo} alt="logo Fanáticos EdeLP" />
           </Box>
           <Menu>
-            <MenuButton as={Link} cursor="pointer" style={{ marginLeft: 30 }}>
+            <MenuButton as={Button} cursor="pointer" style={{ marginLeft: 30 }}>
               Categorias
             </MenuButton>
             <MenuList height={"300px"} overflowY={"scroll"}>
               {categories.map((Category) => (
                 <MenuItem key={Category.slug}>
-                  <Link to={`/category${Category.slug}`}>{Category.name}</Link>
+                  <Link to={`/category/${Category.slug}`}>{Category.name}</Link>
                 </MenuItem>
               ))}
             </MenuList>
