@@ -19,6 +19,7 @@ export const ItemDetailContainer = () => {
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -41,6 +42,11 @@ export const ItemDetailContainer = () => {
 
         fetchItem();
     }, [id]);
+
+    const addToCart = () => {
+        setCartItems([...cartItems, item]);
+        alert(`${item.title} agregado al carrito.`);
+    };
 
     const borderColor = useColorModeValue("black", "white");
     const boxShadow = useColorModeValue("6px 6px 0 black", "6px 6px 0 white");
@@ -119,6 +125,14 @@ export const ItemDetailContainer = () => {
                         colorScheme="blue"
                     >
                         Volver
+                    </Button>
+                    <Button
+                        onClick={addToCart}
+                        mt={4}
+                        colorScheme="teal"
+                        disabled={item.stock === 0}
+                    >
+                        Agregar al carrito
                     </Button>
                 </Box>
             </Box>
