@@ -123,6 +123,7 @@ export const ItemDetailContainer = () => {
                         onClick={() => navigate(-1)}
                         mt={4}
                         colorScheme="blue"
+                        mr={3}
                     >
                         Volver
                     </Button>
