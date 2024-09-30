@@ -37,7 +37,7 @@ export const NavBar = () => {
                       />
                   </Box>
               </Box>
-              <Stack direction={"row"} spacing={4}>
+              <Stack direction={"row"} spacing={8}>
                   <Link to="/">
                       <Button variant="link" fontWeight="bold" fontSize="xl">
                           Inicio
@@ -50,7 +50,7 @@ export const NavBar = () => {
                           fontWeight="bold"
                           fontSize="xl"
                           cursor="pointer"
-                          style={{ marginLeft: 30 }}
+                          
                       >
                           Categorias
                       </MenuButton>
