@@ -19,7 +19,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import logo from "../../assets/logoFanaticos.png";
 import { CardWidget } from "../CardWidget";
 import { Link } from "react-router-dom";
-import { useCategory } from "../../hooks";
+import { useCategory } from "../../hooks/useCategory";
 
 export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();

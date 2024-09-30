@@ -1,6 +1,6 @@
 import { Box, Text, Button } from "@chakra-ui/react";
 
-export const CartPage = () => {
+export const cartPage = () => {
     const cartItems = [];
 
     return (
