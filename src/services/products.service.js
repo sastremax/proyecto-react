@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function getAllProducts() {
-    return await axios.get("https://dummyjson.com/products?limit=100");
+    return await axios.get("https://dummyjson.com/products?limit=200");
 }
 
 export async function getProductById(id) {

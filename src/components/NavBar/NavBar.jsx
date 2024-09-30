@@ -64,7 +64,7 @@ export const NavBar = () => {
                           ))}
                       </MenuList>
                   </Menu>
-                  <Link to="/category/accesorios">
+                  <Link to="/productos">
                       <Button variant="link" fontWeight="bold" fontSize="xl">
                           Productos
                       </Button>
