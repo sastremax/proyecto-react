@@ -5,6 +5,7 @@ import {
     Text,
     Img,
     Center,
+    Flex,
     useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -12,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
-import { ItemCount } from "./ItemCount";
+import { ItemCount } from "../ItemCount";
 
 export const ItemDetailContainer = () => {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const ItemDetailContainer = () => {
     const [error, setError] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [showCounter, setShowCounter] = useState(true);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -45,8 +47,13 @@ export const ItemDetailContainer = () => {
         fetchItem();
     }, [id]);
 
-    const addToCart = (quantity) => {
-        setCartItems([...cartItems, { ...item, quantity }]);
+    const handleAdd = (selectedQuantity) => {
+        setQuantity(selectedQuantity);
+    };
+
+    const addToCart = () => {
+        const updatedCart = [...cartItems, { ...item, quantity }];
+        setCartItems(updatedCart);
         alert(`${quantity} ${item.title} agregado al carrito.`);
         setShowCounter(false);
     };
@@ -75,7 +82,7 @@ export const ItemDetailContainer = () => {
     return (
         <Center py={6}>
             <Box
-                w="xs"
+                w={["100%", "80%", "xs"]}
                 rounded={"lg"}
                 my={5}
                 mx={[0, 5]}
@@ -124,20 +131,27 @@ export const ItemDetailContainer = () => {
                     </Text>
 
                     {showCounter && (
-                        <ItemCount
-                            stock={item.stock}
-                            initial={1}
-                            onAdd={addToCart}
+                        <>
+                            <ItemCount
+                                stock={item.stock}
+                                initial={1}
+                                onAdd={handleAdd}
                             />
+                            <Button
+                                onClick={addToCart}
+                                mt={4}
+                                colorScheme="teal"
+                                disabled={item.stock === 0}
+                            >
+                                Agregar al carrito
+                            </Button>
+                        </>
                     )}
-                    <Button
-                        onClick={() => navigate(-1)}
-                        mt={4}
-                        colorScheme="blue"
-                        mr={3}
-                    >
-                        Volver
-                    </Button>                    
+                    <Flex justifyContent="flex-end" mt={4}>
+                        <Button onClick={() => navigate(-1)} colorScheme="blue">
+                            Volver
+                        </Button>
+                    </Flex>
                 </Box>
             </Box>
         </Center>
