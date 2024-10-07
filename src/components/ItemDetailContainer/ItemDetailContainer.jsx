@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
+import { ItemCount } from "./ItemCount";
 
 export const ItemDetailContainer = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ export const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [showCounter, setShowCounter] = useState(true);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -43,9 +45,10 @@ export const ItemDetailContainer = () => {
         fetchItem();
     }, [id]);
 
-    const addToCart = () => {
-        setCartItems([...cartItems, item]);
-        alert(`${item.title} agregado al carrito.`);
+    const addToCart = (quantity) => {
+        setCartItems([...cartItems, { ...item, quantity }]);
+        alert(`${quantity} ${item.title} agregado al carrito.`);
+        setShowCounter(false);
     };
 
     const borderColor = useColorModeValue("black", "white");
@@ -119,6 +122,14 @@ export const ItemDetailContainer = () => {
                         Stock disponible:{" "}
                         {item.stock > 0 ? item.stock : "Agotado"}
                     </Text>
+
+                    {showCounter && (
+                        <ItemCount
+                            stock={item.stock}
+                            initial={1}
+                            onAdd={addToCart}
+                            />
+                    )}
                     <Button
                         onClick={() => navigate(-1)}
                         mt={4}
@@ -126,15 +137,7 @@ export const ItemDetailContainer = () => {
                         mr={3}
                     >
                         Volver
-                    </Button>
-                    <Button
-                        onClick={addToCart}
-                        mt={4}
-                        colorScheme="teal"
-                        disabled={item.stock === 0}
-                    >
-                        Agregar al carrito
-                    </Button>
+                    </Button>                    
                 </Box>
             </Box>
         </Center>
