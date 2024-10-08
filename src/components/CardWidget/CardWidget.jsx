@@ -1,9 +1,15 @@
-import { IconButton } from "@chakra-ui/react";
-import { TiShoppingCart } from "react-icons/ti";
+import { IconButton, Box } from "@chakra-ui/react";
+import { CiShoppingCart } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context";
 
 export const CardWidget = () => {
     const navigate = useNavigate();
+
+    const { cartItems } = useCart();
+    console.log("cartItems:", cartItems);
+
+    const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     const handleCartClick = () => {
         navigate("/cart");
@@ -11,7 +17,16 @@ export const CardWidget = () => {
 
     return (
         <IconButton
-            icon={<TiShoppingCart />}
+            icon={
+                <Box display="flex" alignItems="center">
+                    <CiShoppingCart />
+                    {totalItems > 0 && (
+                        <Box as="span" ml="8px">
+                            {totalItems}
+                        </Box>
+                    )}
+                </Box>
+            }
             onClick={handleCartClick}
             aria-label="Carrito"
             style={{
@@ -21,8 +36,6 @@ export const CardWidget = () => {
                 width: "30%",
                 justifyContent: "space-between",
             }}
-        >
-            
-        </IconButton>
+        />
     );
 };

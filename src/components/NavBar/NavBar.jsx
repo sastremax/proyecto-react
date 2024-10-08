@@ -37,12 +37,7 @@ export const NavBar = () => {
                       />
                   </Box>
               </Box>
-              <Stack direction={"row"} spacing={8}>
-                  <Link to="/">
-                      <Button variant="link" fontWeight="bold" fontSize="xl">
-                          Inicio
-                      </Button>
-                  </Link>
+              <Stack direction={"row"} spacing={8}>                  
                   <Menu>
                       <MenuButton
                           as={Button}

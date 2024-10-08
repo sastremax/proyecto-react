@@ -95,7 +95,7 @@ export const ItemListContainer = ({ products }) => {
   return (
     <Flex flexWrap="wrap" justifyContent="center" gap={6}>
       {products.map((item) => {
-        return <Item key={item.id} item={item} />;
+        return <Item key={Number(item.id)} item={{ ...item, id: Number(item.id) }} />;
       })}      
     </Flex>
   );

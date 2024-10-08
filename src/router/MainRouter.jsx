@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { Category, Events, Home, ItemDetail, NotFound } from "../pages";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Category, Events, ItemDetail, NotFound } from "../pages";
 import { NavBar } from "../components";
 import { AllProducts } from "../components/AllProducts";
 
@@ -8,7 +8,7 @@ export const MainRouter = () => {
         <>
             <NavBar />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Navigate to="/productos" />} />
                 <Route path="/item/:id" element={<ItemDetail />} />
                 <Route path="/category/:categoryId" element={<Category />} />
                 <Route path="/productos" element={<AllProducts />} />

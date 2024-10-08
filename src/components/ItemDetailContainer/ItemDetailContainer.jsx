@@ -14,6 +14,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { ItemCount } from "../ItemCount";
+import { useCart } from "../../context";
+
 
 export const ItemDetailContainer = () => {
     const navigate = useNavigate();
@@ -21,9 +23,8 @@ export const ItemDetailContainer = () => {
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-    const [showCounter, setShowCounter] = useState(true);
-    const [quantity, setQuantity] = useState(1);
+    const [count, setCount] = useState(1);
+    const { addItemToCart } = useCart();
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -43,25 +44,21 @@ export const ItemDetailContainer = () => {
                 setLoading(false);
             }
         };
-
         fetchItem();
     }, [id]);
-
-    const handleAdd = (selectedQuantity) => {
-        setQuantity(selectedQuantity);
+    
+    const handleAddItem = (quantity) => {
+        setCount(quantity);
     };
 
     const addToCart = () => {
-        const updatedCart = [...cartItems, { ...item, quantity }];
-        setCartItems(updatedCart);
-        alert(`${quantity} ${item.title} agregado al carrito.`);
-        setShowCounter(false);
+        addItemToCart(item, count);
+        alert(`${count} ${item.title} agregado al carrito.`);
     };
 
     const borderColor = useColorModeValue("black", "white");
     const boxShadow = useColorModeValue("6px 6px 0 black", "6px 6px 0 white");
     const bgColor = useColorModeValue("white", "gray.200");
-
     if (error) {
         return (
             <Text>
@@ -70,15 +67,12 @@ export const ItemDetailContainer = () => {
             </Text>
         );
     }
-
     if (loading) {
         return <Text>Cargando...</Text>;
     }
-
     if (!item) {
         return <Text>Producto no encontrado</Text>;
     }
-
     return (
         <Center py={6}>
             <Box
@@ -129,24 +123,10 @@ export const ItemDetailContainer = () => {
                         Stock disponible:{" "}
                         {item.stock > 0 ? item.stock : "Agotado"}
                     </Text>
-
-                    {showCounter && (
-                        <>
-                            <ItemCount
-                                stock={item.stock}
-                                initial={1}
-                                onAdd={handleAdd}
-                            />
-                            <Button
-                                onClick={addToCart}
-                                mt={4}
-                                colorScheme="teal"
-                                disabled={item.stock === 0}
-                            >
-                                Agregar al carrito
-                            </Button>
-                        </>
-                    )}
+                    <ItemCount stock={item.stock} initial={1} onAdd={handleAddItem} />
+                    <Button onClick={addToCart} mt={4} colorScheme="teal" disabled={item.stock === 0} >
+                        Agregar al carrito
+                    </Button>
                     <Flex justifyContent="flex-end" mt={4}>
                         <Button onClick={() => navigate(-1)} colorScheme="blue">
                             Volver
