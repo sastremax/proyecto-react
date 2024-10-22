@@ -1,36 +1,27 @@
-import { Flex, Text, Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState, useRef } from "react";
+import { Flex, Button, Text } from "@chakra-ui/react";
 
-export const ItemCount = ({ stock, initial }) => {
-    const [count, setCount] = useState(initial);
+export const ItemCount = () => {
+  const [state, setState] = useState(0);
 
-    const handleAdd = () => {
-        if (count < stock) {
-            setCount(count + 1);
-        }
-    };
+  const handleAdd = () => {
+    setState(state + 1);
+  };
 
-    const handleRemove = () => {
-        if (count > 0) {
-            setCount(count - 1);
-        }
-    };
+  const handleRemove = () => {
+    setState(state - 1);
+  };
 
-    useEffect(() => {
-        console.log(`El contador ha cambiado a: ${count}`);
-    }, [count]);
+  useEffect(() => {
+    console.log("useEffect con dependencias vacias");
+  }, []);
 
-    return (
-        <Flex>
-            <Button onClick={handleRemove}>-</Button>
-            <Text>{count}</Text>
-            <Button onClick={handleAdd}>+</Button>
-        </Flex>
-    );
-};
 
-ItemCount.propTypes = {
-    stock: PropTypes.number.isRequired,
-    initial: PropTypes.number.isRequired,    
+  return (
+    <Flex>
+      <Button onClick={handleRemove}>-</Button>
+      <Text>{state}</Text>
+      <Button onClick={handleAdd}>+</Button>
+    </Flex>
+  );
 };

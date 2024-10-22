@@ -1,23 +1,12 @@
-import { useParams } from "react-router";
+import React from "react";
 import { useItemsByCategory } from "../hooks";
-import { ItemListContainer } from "../components";
+import { ItemListContainer, Loader } from "../components";
+import { useParams } from "react-router";
 
 export const Category = () => {
-    const { categoryId } = useParams();
-    const { productsData, loading } = useItemsByCategory(categoryId);
+  const { id } = useParams();
 
-    const filteredProducts = productsData.filter(
-        (product) => product.category === categoryId
-    );
+  const { productsData, loading } = useItemsByCategory(id);
 
-    if (loading) {
-    return <div>Cargando...</div>;
-    }
-
-    if (!loading && filteredProducts.length === 0) {
-        return <p>No hay productos disponibles en esta categoría.</p>;
-    }
-    
-    return <ItemListContainer products={filteredProducts} />;
-
+  return loading ? <Loader /> : <ItemListContainer products={productsData} />;
 };

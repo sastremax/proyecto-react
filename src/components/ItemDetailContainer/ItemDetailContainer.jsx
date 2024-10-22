@@ -1,149 +1,110 @@
 import {
     Box,
+    Container,
+    Stack,
+    Text,
+    Image,
+    Flex,
+    VStack,
     Button,
     Heading,
-    Text,
-    Img,
-    Center,
-    Flex,
+    SimpleGrid,
+    StackDivider,
     useColorModeValue,
 } from "@chakra-ui/react";
+import { useContext, useState } from "react";
+import { MdLocalShipping } from "react-icons/md";
+import { CartContext } from "../../context";
 
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+export const ItemDetailContainer = ({ item }) => {
+    const [count, setCount] = useState(0);
 
-import PropTypes from "prop-types";
-import { ItemCount } from "../ItemCount";
-import { useCart } from "../../context";
+    const { addItem, removeItem } = useContext(CartContext);
 
-
-export const ItemDetailContainer = () => {
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const [item, setItem] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [count, setCount] = useState(1);
-    const { addItemToCart } = useCart();
-
-    useEffect(() => {
-        const fetchItem = async () => {
-            try {
-                const response = await fetch(
-                    `https://dummyjson.com/products/${id}`
-                );
-                if (!response.ok) {
-                    throw new Error("Error al obtener los datos");
-                }
-                const data = await response.json();
-                setItem(data);
-            } catch (error) {
-                console.error("Error ", error);
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchItem();
-    }, [id]);
-    
-    const handleAddItem = (quantity) => {
-        setCount(quantity);
+    const handleAddItem = () => {
+        const newCount = count + 1;
+        setCount(newCount);
+        addItem(item, newCount);
     };
 
-    const addToCart = () => {
-        addItemToCart(item, count);
-        alert(`${count} ${item.title} agregado al carrito.`);
+    const handleRemoveItem = () => {
+        setCount(count - 1);
+        removeItem(item);
     };
 
-    const borderColor = useColorModeValue("black", "white");
-    const boxShadow = useColorModeValue("6px 6px 0 black", "6px 6px 0 white");
-    const bgColor = useColorModeValue("white", "gray.200");
-    if (error) {
-        return (
-            <Text>
-                Error al cargar el producto. Por favor, intenta nuevamente más
-                tarde.
-            </Text>
-        );
-    }
-    if (loading) {
-        return <Text>Cargando...</Text>;
-    }
-    if (!item) {
-        return <Text>Producto no encontrado</Text>;
-    }
     return (
-        <Center py={6}>
-            <Box
-                w={["100%", "80%", "xs"]}
-                rounded={"lg"}
-                my={5}
-                mx={[0, 5]}
-                overflow={"hidden"}
-                bg={bgColor}
-                borderWidth={"2px"}
-                borderColor={borderColor}
-                boxShadow={boxShadow}
+        <Container maxW={"7xl"}>
+            <SimpleGrid
+                columns={{ base: 1, lg: 2 }}
+                spacing={{ base: 8, md: 10 }}
+                py={{ base: 18, md: 24 }}
             >
-                <Box h={"200px"} borderBottom={"1px"} borderColor={borderColor}>
-                    <Img
+                <Flex>
+                    <Image
+                        rounded={"md"}
+                        alt={"product image"}
                         src={item.thumbnail}
-                        roundedTop={"sm"}
-                        objectFit="cover"
-                        h="full"
-                        w="full"
-                        alt={"Product Image"}
+                        fit={"cover"}
+                        align={"center"}
+                        w={"100%"}
+                        h={{ base: "100%", sm: "400px", lg: "500px" }}
                     />
-                </Box>
-                <Box p={4}>
-                    <Heading color="black" fontSize="2xl" noOfLines={1}>
-                        {item.title}
-                    </Heading>
-                    <Text color={"gray.500"}>{item.description}</Text>
-                    <Box
-                        bg={bgColor}
-                        display={"inline-block"}
-                        px={2}
-                        py={1}
-                        color="white"
-                        mb={2}
-                    >
-                        <Text
-                            fontSize={"xs"}
-                            fontWeight={"medium"}
-                            color={"black"}
-                            border="black"
-                            noOfLines={2}
+                </Flex>
+                <Stack spacing={{ base: 6, md: 10 }}>
+                    <Box as={"header"}>
+                        <Heading
+                            lineHeight={1.1}
+                            fontWeight={600}
+                            fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
                         >
-                            ${item.price}
+                            {item.title}
+                        </Heading>
+                        <Text
+                            color={useColorModeValue("gray.900", "gray.400")}
+                            fontWeight={300}
+                            fontSize={"2xl"}
+                        >
+                            ${item.price} USD
                         </Text>
                     </Box>
-                    <Text color={"gray.500"} noOfLines={2}>
-                        Stock disponible:{" "}
-                        {item.stock > 0 ? item.stock : "Agotado"}
-                    </Text>
-                    <ItemCount stock={item.stock} initial={1} onAdd={handleAddItem} />
-                    <Button onClick={addToCart} mt={4} colorScheme="teal" disabled={item.stock === 0} >
-                        Agregar al carrito
-                    </Button>
-                    <Flex justifyContent="flex-end" mt={4}>
-                        <Button onClick={() => navigate(-1)} colorScheme="blue">
-                            Volver
-                        </Button>
-                    </Flex>
-                </Box>
-            </Box>
-        </Center>
-    );
-};
 
-ItemDetailContainer.propTypes = {
-    item: PropTypes.shape({
-        thumbnail: PropTypes.string,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        price: PropTypes.number,
-        stock: PropTypes.number,
-    }),
+                    <Stack
+                        spacing={{ base: 4, sm: 6 }}
+                        direction={"column"}
+                        divider={
+                            <StackDivider
+                                borderColor={useColorModeValue(
+                                    "gray.200",
+                                    "gray.600"
+                                )}
+                            />
+                        }
+                    >
+                        <VStack spacing={{ base: 4, sm: 6 }}>
+                            <Text fontSize={"lg"}>{item.description}</Text>
+                        </VStack>
+                    </Stack>
+
+                    <Flex
+                        justifyContent={"space-between"}
+                        width={"20%"}
+                        alignItems={"center"}
+                    >
+                        <Button onClick={handleRemoveItem}>-</Button>
+                        <Text>{count}</Text>
+                        <Button onClick={handleAddItem}>+</Button>
+                    </Flex>
+
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent={"center"}
+                    >
+                        <MdLocalShipping />
+                        <Text>2-3 business days delivery</Text>
+                    </Stack>
+                </Stack>
+            </SimpleGrid>
+        </Container>
+    );
 };

@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getProductById } from "../services/products.service";
 
 export const useItemById = (id) => {
-    const [product, setProduct] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const fetchProduct = async () => {
-        try {
-            const response = await fetch (`https://dummyjson.com/products/${id}`);
-            const data = await response.json();
-            setProduct(data);
-        } catch (error) {
-            console.error("Error al obtener el producto:", error);
-            setError(error);
-        } finally {
-            setLoading(false);
-        }
-      }; 
+  useEffect(() => {
+    getProductById(id)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
+  }, []);
 
-      fetchProduct();
-    }, [id]);
-
-    return { product, loading, error };
+  return { product, loading };
 };

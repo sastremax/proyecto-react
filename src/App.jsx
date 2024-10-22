@@ -1,17 +1,19 @@
+import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { MainLayout } from "./layouts";
+import MainLayout from "./layouts/MainLayout";
 import { MainRouter } from "./router";
 import { CartProvider } from "./context";
 
-
-export const App = () => {
-    return (
-        <ChakraProvider>
-            <MainLayout>
-                <CartProvider>
-                    <MainRouter />
-                </CartProvider>
-            </MainLayout>
-        </ChakraProvider>
-    );
+const App = () => {
+  return (
+    <ChakraProvider>
+      <MainLayout>
+        <CartProvider>
+          <MainRouter />
+        </CartProvider>
+      </MainLayout>
+    </ChakraProvider>
+  );
 };
+
+export default App;

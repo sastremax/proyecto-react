@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { getAllProducts } from "../services/products.service";
 
 export const useItems = () => {
-    const [productsData, setProductsData] = useState([]);
-    const [loading, setLoading] = useState(true);   
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getAllProducts()
+      .then((res) => {
+        setProductsData(res.data.products);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-    useEffect(() => {
-        const itemsCollection = collection(db, "products");
-        getDocs(itemsCollection).then((snapshot) => {
-            setProductsData(
-                snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-            );
-            setLoading(false);
-        });
-    }, []);
-
-    return { productsData, loading };
-}
+  return { productsData, loading };
+};

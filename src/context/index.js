@@ -1,1 +1,1 @@
-export { CartProvider, useCart } from "./CartContext";
+export * from './CartContext';
