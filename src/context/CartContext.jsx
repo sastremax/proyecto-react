@@ -15,12 +15,12 @@ export const CartProvider = ({ children }) => {
             setCartState(
                 cartState.map((item) =>
                     item.id === product.id
-                        ? { ...item, qtyItem: item.qtyItem + 1 }
+                        ? { ...item, qtyItem: item.qtyItem + item.qtyItem }
                         : item
                 )
             );
         } else {
-            setCartState([...cartState, { ...product, qtyItem: qtyItem }]);
+            setCartState([...cartState, { ...product, qtyItem }]);
         }
     };
 
@@ -49,8 +49,7 @@ export const CartProvider = ({ children }) => {
     return (
         <CartContext.Provider
             value={{
-                cartState,
-                setCartState,
+                cartState,                
                 addItem,
                 removeItem,
             }}

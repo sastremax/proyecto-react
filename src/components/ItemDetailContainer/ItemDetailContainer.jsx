@@ -132,14 +132,6 @@ ItemDetailContainer.propTypes = {
         description: PropTypes.string,
         thumbnail: PropTypes.string,
         image: PropTypes.string,
-        images: PropTypes.arrayOf(PropTypes.string),
-        reviews: PropTypes.arrayOf(
-            PropTypes.shape({
-                reviewerName: PropTypes.string.isRequired,
-                date: PropTypes.string.isRequired,
-                rating: PropTypes.number.isRequired,
-                comment: PropTypes.string.isRequired,
-            })
-        ),
+        images: PropTypes.arrayOf(PropTypes.string),        
     }).isRequired,
 };

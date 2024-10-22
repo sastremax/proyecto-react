@@ -28,7 +28,11 @@ export const ItemCount = ({ stock, initial = 1, onAddToCart }) => {
                     +
                 </Button>
             </Flex>
-            <Button mt={4} onClick={() => onAddToCart(count)}>
+            <Button
+                mt={4}
+                onClick={() => onAddToCart(count)}
+                disabled={stock === 0 || count === 0}
+            >
                 Agregar al Carrito
             </Button>
         </Flex>
@@ -36,7 +40,7 @@ export const ItemCount = ({ stock, initial = 1, onAddToCart }) => {
 };
 
 ItemCount.propTypes = {
-    stock: PropTypes.number.isRequired, // Asegura que sea un número requerido
-    initial: PropTypes.number, // Asegura que sea un número
-    onAddToCart: PropTypes.func.isRequired, // Asegura que sea una función requerida
+    stock: PropTypes.number.isRequired,
+    initial: PropTypes.number, 
+    onAddToCart: PropTypes.func.isRequired, 
 };

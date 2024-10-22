@@ -3,9 +3,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { CartContext } from "../../context";
 
 export const CartWidget = () => {
-    const { cartState } = useContext(CartContext);
-
-    console.log("CartWidget renderizado", cartState);
+    const { cartState } = useContext(CartContext);    
 
     const totalItems = cartState.reduce((acc, item) => acc + item.qtyItem, 0);
 

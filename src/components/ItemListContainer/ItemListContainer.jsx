@@ -72,6 +72,7 @@ const Item = ({ item }) => {
                             </Text>
                         </Box>
                     )}
+
                     {item.price && (
                         <Box
                             bg="black"
@@ -83,6 +84,20 @@ const Item = ({ item }) => {
                         >
                             <Text fontSize={"xs"} fontWeight="medium">
                                 ${item.price}
+                            </Text>
+                        </Box>
+                    )}
+                    {item.stock === 0 && (
+                        <Box
+                            bg="red.500"
+                            display={"inline-block"}
+                            px={2}
+                            py={1}
+                            color="white"
+                            mb={2}
+                        >
+                            <Text fontSize={"xs"} fontWeight="medium">
+                                Sin stock
                             </Text>
                         </Box>
                     )}
@@ -109,18 +124,18 @@ const Item = ({ item }) => {
     );
 };
 
-export const ItemListContainer = ({ products = [] }) => {
-    
-    
+export const ItemListContainer = ({ products = [] }) => {    
     if (!products || products.length === 0) {
         return <Text>No hay productos disponibles.</Text>;
     }
 
     return (
         <Flex wrap={"wrap"}>
-            {products.map((item) => (
-                <Item key={item.id} item={item} />
-            ))}
+            {products
+                .filter((item) => item.stock > 0)
+                .map((item) => (
+                    <Item key={item.id} item={item} />
+                ))}
         </Flex>
     );
 };
@@ -136,6 +151,7 @@ Item.propTypes = {
         images: PropTypes.arrayOf(PropTypes.string),
         price: PropTypes.number,
         rating: PropTypes.number,
+        stock: PropTypes.number.isRequired,
     }).isRequired,
 };
 
@@ -151,6 +167,7 @@ ItemListContainer.propTypes = {
             images: PropTypes.arrayOf(PropTypes.string),
             price: PropTypes.number,
             rating: PropTypes.number,
+            stock: PropTypes.number.isRequired,
         })
     ).isRequired,
 };

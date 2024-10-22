@@ -35,15 +35,17 @@ export const NavBar = () => {
                     >
                         Categorias
                     </MenuButton>
-                    <MenuList height={"300px"} overflowY={"scroll"}>
-                        {itemsData.map((category) => (
-                            <MenuItem key={category.id || category.slug}>
-                                <Link to={`/category/${category.slug}`}>
-                                    {category.name}
-                                </Link>
-                            </MenuItem>
-                        ))}
-                    </MenuList>
+                    {itemsData && itemsData.length > 0 && (
+                        <MenuList height={"300px"} overflowY={"scroll"}>
+                            {itemsData.map((category) => (
+                                <MenuItem key={category.id || category.slug}>
+                                    <Link to={`/category/${category.slug}`}>
+                                        {category.name}
+                                    </Link>
+                                </MenuItem>
+                            ))}
+                        </MenuList>
+                    )}
                 </Menu>
                 <Button
                     onClick={() => {
