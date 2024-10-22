@@ -1,39 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Divider, Box, Button } from "@chakra-ui/react";
 
-// //Funcion tiene referencia dentro del contexto de ejecución
-// function handleScroll() {
-//   console.log("scrolling");
-// }
-
-// //Funciones anonimas, this
-// () => {
-//     console.log("scrolling");
-//   }
-//   const myfunc = () => {
-//      console.log("scrolling");
-//    }
-// class Animal {
-//     onMount() {}
-//     onDesMount() {
-//         this.
-//     }
-// }
-
-//windows -- document
 export const Events = () => {
-  //   useEffect(() => {
-  //     console.log("componente se monta");
-  //     //useEffect sirve para controlar el ciclo de vida de un componente
-  //     //Cuando uno genera un evento en el DOM real
-  //     document.addEventListener("scroll", handleScroll);
-  //     //Ese evento debemos limpiarlo
-  //     //Para limpiar el evento utilizamos la funcion cleanup de useEffect
-  //     return () => {
-  //       document.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }, []);
-
+  
   const [list, setList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [formInputValue, setFormInputValue] = useState("");
@@ -44,7 +13,7 @@ export const Events = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); //Evitar que la pagina se recargue cuando envian el formulario
+    e.preventDefault(); 
     alert("Enviando formulario" + formInputValue);
   };
 

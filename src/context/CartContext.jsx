@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-    //Estado Global
     const [cartState, setCartState] = useState([]);
 
     const addItem = (product, qtyItem) => {
@@ -58,4 +58,8 @@ export const CartProvider = ({ children }) => {
             {children}
         </CartContext.Provider>
     );
+};
+
+CartProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };

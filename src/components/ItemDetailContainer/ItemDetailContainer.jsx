@@ -12,24 +12,30 @@ import {
     StackDivider,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
-import { MdLocalShipping } from "react-icons/md";
+import { useContext } from "react";
 import { CartContext } from "../../context";
+import { useNavigate } from "react-router-dom";
+import { ItemCount } from "../ItemCount";
+import PropTypes from "prop-types";
 
 export const ItemDetailContainer = ({ item }) => {
-    const [count, setCount] = useState(0);
+    const navigate = useNavigate();
+    const { addItem } = useContext(CartContext);
 
-    const { addItem, removeItem } = useContext(CartContext);
-
-    const handleAddItem = () => {
-        const newCount = count + 1;
-        setCount(newCount);
-        addItem(item, newCount);
+    const handleAddToCart = (quantity) => {
+        addItem(item, quantity);
     };
 
-    const handleRemoveItem = () => {
-        setCount(count - 1);
-        removeItem(item);
+    const getProductImage = (item) => {
+        if (item.thumbnail) {
+            return item.thumbnail;
+        } else if (item.image) {
+            return item.image;
+        } else if (item.images && item.images.length > 0) {
+            return item.images[0];
+        } else {
+            return "url_de_imagen_por_defecto";
+        }
     };
 
     return (
@@ -42,8 +48,8 @@ export const ItemDetailContainer = ({ item }) => {
                 <Flex>
                     <Image
                         rounded={"md"}
-                        alt={"product image"}
-                        src={item.thumbnail}
+                        alt={"Imagen del producto"}
+                        src={getProductImage(item)}
                         fit={"cover"}
                         align={"center"}
                         w={"100%"}
@@ -84,27 +90,56 @@ export const ItemDetailContainer = ({ item }) => {
                             <Text fontSize={"lg"}>{item.description}</Text>
                         </VStack>
                     </Stack>
-
-                    <Flex
-                        justifyContent={"space-between"}
-                        width={"20%"}
-                        alignItems={"center"}
-                    >
-                        <Button onClick={handleRemoveItem}>-</Button>
-                        <Text>{count}</Text>
-                        <Button onClick={handleAddItem}>+</Button>
+                    <Flex>
+                        <Text>
+                            Stock:{" "}
+                            {item.stock < 20
+                                ? "Últimas unidades disponibles"
+                                : item.stock}
+                        </Text>
                     </Flex>
-
+                    <ItemCount
+                        stock={item.stock}
+                        initial={1}
+                        onAddToCart={handleAddToCart}
+                    />
                     <Stack
                         direction="row"
                         alignItems="center"
                         justifyContent={"center"}
                     >
-                        <MdLocalShipping />
-                        <Text>2-3 business days delivery</Text>
+                        <Button
+                            onClick={() => navigate(-1)}
+                            mt={4}
+                            colorScheme="teal"
+                        >
+                            Volver
+                        </Button>
                     </Stack>
                 </Stack>
             </SimpleGrid>
         </Container>
     );
+};
+
+ItemDetailContainer.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        stock: PropTypes.number.isRequired,
+        rating: PropTypes.number,
+        description: PropTypes.string,
+        thumbnail: PropTypes.string,
+        image: PropTypes.string,
+        images: PropTypes.arrayOf(PropTypes.string),
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+                reviewerName: PropTypes.string.isRequired,
+                date: PropTypes.string.isRequired,
+                rating: PropTypes.number.isRequired,
+                comment: PropTypes.string.isRequired,
+            })
+        ),
+    }).isRequired,
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getProductsByCategory } from "../services/products.service";
 
 export const useItemsByCategory = (categoryId) => {

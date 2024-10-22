@@ -2,6 +2,7 @@ import { ItemListContainer, Loader } from "../components";
 import { useItems } from "../hooks";
 
 export const Home = () => {
-  const { productsData, loading } = useItems();
-  return loading ? <Loader /> : <ItemListContainer products={productsData} />;
+  const { itemsData, loading } = useItems("products");
+  console.log("itemsData:", itemsData);
+  return loading ? <Loader /> : <ItemListContainer products={itemsData} />;
 };
