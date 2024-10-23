@@ -132,7 +132,7 @@ export const ItemListContainer = ({ products = [] }) => {
     return (
         <Flex wrap={"wrap"}>
             {products
-                .filter((item) => item.stock > 0)
+                .filter((item) => item.stock !== undefined)
                 .map((item) => (
                     <Item key={item.id} item={item} />
                 ))}

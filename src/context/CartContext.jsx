@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
             setCartState(
                 cartState.map((item) =>
                     item.id === product.id
-                        ? { ...item, qtyItem: item.qtyItem + item.qtyItem }
+                        ? { ...item, qtyItem: item.qtyItem + qtyItem }
                         : item
                 )
             );
