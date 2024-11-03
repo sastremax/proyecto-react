@@ -100,7 +100,9 @@ export const ItemDetailContainer = ({ item }) => {
                         </VStack>
                     </Stack>
                     <Flex>
-                        <Text>Stock: {stockMessage}</Text>
+                        <Text>
+                            Stock: {stockMessage}
+                        </Text>
                     </Flex>
                     {item.stock > 0 ? (
                         <ItemCount
@@ -142,6 +144,6 @@ ItemDetailContainer.propTypes = {
         description: PropTypes.string,
         thumbnail: PropTypes.string,
         image: PropTypes.string,
-        images: PropTypes.arrayOf(PropTypes.string),
+        images: PropTypes.arrayOf(PropTypes.string),        
     }).isRequired,
 };
