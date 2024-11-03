@@ -17,7 +17,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { CartWidget } from "../CartWidget";
 import { useItems } from "../../hooks";
 import { Link } from "react-router-dom";
-import { createProductsFirestore } from "../../helpers";
+import mercadoLogo from "../../assets/mercado.jpg";
 
 export const NavBar = () => {
     const { colorMode, toggleColorMode } = useColorMode();    
@@ -26,7 +26,16 @@ export const NavBar = () => {
     return (
         <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
             <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-                <Box>Logo</Box>
+                <Link to="/">
+                    <Box
+                        as="img"
+                        src={mercadoLogo}
+                        alt="Logo Mercado"
+                        width="50px"
+                        height="50px"
+                    />
+                </Link>
+
                 <Menu>
                     <MenuButton
                         as={Button}
@@ -47,13 +56,7 @@ export const NavBar = () => {
                         </MenuList>
                     )}
                 </Menu>
-                <Button
-                    onClick={() => {
-                        createProductsFirestore("products");
-                    }}
-                >
-                    Crear productos
-                </Button>
+
                 <Flex alignItems={"center"}>
                     <CartWidget />
                     <Stack direction={"row"} spacing={7}>

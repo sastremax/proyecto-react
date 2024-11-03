@@ -18,6 +18,16 @@ import { useNavigate } from "react-router-dom";
 import { ItemCount } from "../ItemCount";
 import PropTypes from "prop-types";
 
+const getStockMessage = (stock) => {
+    if (stock > 0 && stock < 20) {
+        return "Últimas unidades disponibles";
+    } else if (stock > 0) {
+        return `Stock: ${stock}`;
+    } else {
+        return "Sin stock";
+    }
+};
+
 export const ItemDetailContainer = ({ item }) => {
     const navigate = useNavigate();
     const { addItem } = useContext(CartContext);
@@ -26,17 +36,16 @@ export const ItemDetailContainer = ({ item }) => {
         addItem(item, quantity);
     };
 
-    const getProductImage = (item) => {
-        if (item.thumbnail) {
-            return item.thumbnail;
-        } else if (item.image) {
-            return item.image;
-        } else if (item.images && item.images.length > 0) {
-            return item.images[0];
-        } else {
-            return "url_de_imagen_por_defecto";
-        }
+    const fetchProductImage = (item) => {
+        return (
+            item.thumbnail ||
+            item.image ||
+            item.images?.[0] ||
+            "url_de_imagen_por_defecto"
+        );
     };
+
+    const stockMessage = getStockMessage(item.stock);
 
     return (
         <Container maxW={"7xl"}>
@@ -49,7 +58,7 @@ export const ItemDetailContainer = ({ item }) => {
                     <Image
                         rounded={"md"}
                         alt={"Imagen del producto"}
-                        src={getProductImage(item)}
+                        src={fetchProductImage(item)}
                         fit={"cover"}
                         align={"center"}
                         w={"100%"}
@@ -91,18 +100,19 @@ export const ItemDetailContainer = ({ item }) => {
                         </VStack>
                     </Stack>
                     <Flex>
-                        <Text>
-                            Stock:{" "}
-                            {item.stock < 20
-                                ? "Últimas unidades disponibles"
-                                : item.stock}
-                        </Text>
+                        <Text>Stock: {stockMessage}</Text>
                     </Flex>
-                    <ItemCount
-                        stock={item.stock}
-                        initial={1}
-                        onAddToCart={handleAddToCart}
-                    />
+                    {item.stock > 0 ? (
+                        <ItemCount
+                            stock={item.stock}
+                            initial={1}
+                            onAddToCart={handleAddToCart}
+                        />
+                    ) : (
+                        <Text color="red.500" fontWeight="bold">
+                            Producto no disponible
+                        </Text>
+                    )}
                     <Stack
                         direction="row"
                         alignItems="center"
@@ -132,6 +142,6 @@ ItemDetailContainer.propTypes = {
         description: PropTypes.string,
         thumbnail: PropTypes.string,
         image: PropTypes.string,
-        images: PropTypes.arrayOf(PropTypes.string),        
+        images: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
 };

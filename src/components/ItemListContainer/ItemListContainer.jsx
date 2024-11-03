@@ -14,15 +14,12 @@ import PropTypes from "prop-types";
 
 const Item = ({ item }) => {
     const getProductImage = (item) => {
-        if (item.thumbnail) {
-            return item.thumbnail;
-        } else if (item.image) {
-            return item.image;
-        } else if (item.images && item.images.length > 0) {
-            return item.images[0];
-        } else {
-            return "url_de_imagen_por_defecto";
-        }
+        return (
+            item.thumbnail ||
+            item.image ||
+            item.images?.[0] ||
+            "url_de_imagen_por_defecto"
+        );
     };
 
     return (
@@ -124,50 +121,40 @@ const Item = ({ item }) => {
     );
 };
 
-export const ItemListContainer = ({ products = [] }) => {    
-    if (!products || products.length === 0) {
+export const ItemListContainer = ({ products = [] }) => {
+    
+    const validProducts = products.filter(
+        (item) => item.stock !== undefined && typeof item.stock === "number"
+    );
+    if (validProducts.length === 0) {
         return <Text>No hay productos disponibles.</Text>;
     }
 
     return (
-        <Flex wrap={"wrap"}>
-            {products
-                .filter((item) => item.stock !== undefined)
-                .map((item) => (
+        <Flex wrap="wrap" justifyContent="center" mx="auto">
+            {validProducts.map((item) => (
                     <Item key={item.id} item={item} />
                 ))}
         </Flex>
     );
 };
 
+const itemShape = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    thumbnail: PropTypes.string,
+    image: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    price: PropTypes.number,
+    rating: PropTypes.number,
+    stock: PropTypes.number,
+};
+
 Item.propTypes = {
-    item: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-            .isRequired,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        thumbnail: PropTypes.string,
-        image: PropTypes.string,
-        images: PropTypes.arrayOf(PropTypes.string),
-        price: PropTypes.number,
-        rating: PropTypes.number,
-        stock: PropTypes.number.isRequired,
-    }).isRequired,
+    item: PropTypes.shape(itemShape).isRequired,
 };
 
 ItemListContainer.propTypes = {
-    products: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-                .isRequired,
-            title: PropTypes.string,
-            description: PropTypes.string,
-            thumbnail: PropTypes.string,
-            image: PropTypes.string,
-            images: PropTypes.arrayOf(PropTypes.string),
-            price: PropTypes.number,
-            rating: PropTypes.number,
-            stock: PropTypes.number.isRequired,
-        })
-    ).isRequired,
+    products: PropTypes.arrayOf(PropTypes.shape(itemShape)).isRequired,
 };
