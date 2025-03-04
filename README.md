@@ -79,4 +79,4 @@ Actualmente, hay dos plugins oficiales disponibles:
 @vitejs/plugin-react usa Babel para Fast Refresh.
 @vitejs/plugin-react-swc usa SWC para Fast Refresh.
 
-Autor: Sastre Maximiliano.
+Autor: Sastre Bocalon Maximiliano.
